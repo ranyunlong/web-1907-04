@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>5.v-for指令</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+
+        <!-- <ul>
+            <li v-for="(value, index) in list">
+                <div>{{value}} {{index}}</div>
+            </li>
+        </ul>
+
+        <div>
+            <span v-for="(v, index) in 10">
+                    {{index}}-{{v}}
+            </span>
+
+
+            <b v-for="(value, key) in user">
+                {{key}} {{value}}
+            </b>
+        </div> -->
+    
+
+        <!-- 数组方法 变异
+        
+            push 是vue改版后的push方法
+            只要你调用push vue内部就知道数据发生的改变 观察数据的变化
+
+            如果使用下标 vue不会知道你什么时候添加了数据
+        -->
+
+        <ul>
+            <li v-for="value in users">
+                <!-- {{value}} -->
+                <b>班级：{{value.id}}</b>
+                <b>老师：{{value.name}}</b>
+                <!-- <b v-for="(v, key) in value">
+                    {{key === "name" ? "老师：" : "班级："}}             {{v}}
+                </b> -->
+
+                <ul>
+                    <li v-for="v in value.students">
+                       <b>姓名： {{v.name}}</b>
+                       <b>年龄：{{v.age}}</b>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+
+    <script>
+        
+        /**
+         * 注意： 在vue里数组不能 使用下标去动态添加成员 （添加之后数据无法响应）
+         * 
+         */
+        
+        const app = new Vue({
+            el: "#app",
+            data: {
+                list: [
+                    "张三",
+                    "李四",
+                    "老王"
+                ],
+                user: {
+                    name: "张三",
+                    age: "10"
+                },
+                users: [
+                    {
+                        name: "张三",
+                        id: "1班",
+                        students: [
+                            {
+                                name: "小明",
+                                age: 10
+                            },
+                            {
+                                name: "小芳",
+                                age: 11
+                            }
+                        ]
+                    },
+                    {
+                        name: "李四",
+                        id: "2班",
+                        students: [
+                            {
+                                name: "小明1",
+                                age: 10
+                            },
+                            {
+                                name: "小芳2",
+                                age: 11
+                            }
+                        ]
+                    },
+                    {
+                        name: "老王",
+                        id: "3班",
+                        students: []
+                    }
+                ]
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3.vue使用方法</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    
+    <div id="app"></div>
+
+    <script>
+        /**
+         * 1. el  选项      用于把vue实例生成的标签 添加到页面的哪个元素里
+         * 2. data选项      给vue的模板（template选项里的内容提供数据的）
+         * 3. template选项  给实例提供模板 html标签模板
+         * 模板可以直接写到 实例挂载的元素里
+         * 你也可以在template选项里直接写标签 (如果使用了template选项 template的标签就会替换掉挂载元素)
+         * 注意 template选项里只能有一个根元素
+         * 
+         */
+        const app = new Vue({
+            el: "#app",
+            data: {
+                title: "hello world",
+                arr: [1, 2, 3]
+            },
+            methods: {
+                run() {
+                    return 100;
+                }
+            }, // 提供模板的处理函数
+            template: `
+            <div class='app'>
+                <h1>{{title}}</h1>
+                <p>{{title}}</p>
+                <div>{{run()}}</div>
+            </div>
+            `,
+        });
+    </script>    
+</body>
+</html>

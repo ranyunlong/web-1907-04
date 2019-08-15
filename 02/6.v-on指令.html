@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>6.v-on指令</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+
+        <!-- v-on绑定事件
+            事件支持js里的所有事件
+            v-on:js事件名称
+            click = onclick
+            mousemove
+
+            $event 全局变量 用于传递事件
+        -->
+
+        <ul>
+            <li v-for="(value, index) in list">
+                <!-- 当事件使用了自定义传参时 如果需要事件对象 使用 $event来传递-->
+                {{value}} <button v-on:click="remove(index, $event)">删除</button>
+            </li>
+
+        </ul>
+
+        <input type="text" v-model="user" />
+        <button v-on:click="click" v-on:mousemove="move">添加用户</button>
+    </div>
+
+
+    <script>
+    
+        const app = new Vue({
+            el: "#app",
+            data: {
+                list: [
+                    "张三",
+                    "李四"
+                ],
+                user: ""
+            },
+            methods: {
+                click(n,e) {
+                    // console.log(this.list)
+                    if (this.user) {
+                        this.list.push(this.user)
+                        // 清空变量 === 清空了输入框
+                        this.user = "";
+                    }
+                },
+                remove(index, event) {
+                    // alert("删除" + index)
+                    this.list.splice(index, 1);
+                    // console.log(event)
+                },
+                move() {
+                    console.log("move")
+                }
+            },
+        })
+    </script>
+</body>
+</html>

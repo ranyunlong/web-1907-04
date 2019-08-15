@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>8.v-bind指令</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- v-bind 给标签的某一个属性绑定 变量 -->
+        <!-- <div v-bind:index="css"></div> -->
+        <!-- <div v-bind:style="css">222</div> -->
+
+        <div v-text="text">2222</div>
+
+        <!-- 不需要转义 直接加入html -->
+        <div v-html="html"></div>
+    </div>
+
+
+    <script>
+    
+        const app = new Vue({
+            el: "#app",
+            data: {
+                css: {
+                    background: "Red",
+                    color: "#fff"
+                },
+                text:"哈哈啊",
+                html : "<h1>aa</h1>"
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2.gettter&setter</title>
+</head>
+<body>
+
+    <h1 id="title"></h1>
+    
+    <script>
+        let _title = "";
+        const app = {
+            // 拦截访问title成员
+            get title() {
+                return _title
+            },
+            // 拦截给title成员赋值
+            set title(value) {
+                document.getElementById("title").innerHTML = value;
+                _title = value;
+            }
+        }
+
+
+    
+    
+    </script>
+
+
+</body>
+</html>

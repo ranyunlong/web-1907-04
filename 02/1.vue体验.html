@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>1.vue体验</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- <input /> -->
+    </div>
+
+
+    <script>
+        const app = new Vue({
+            el: "#app",
+            // el: document.getElementById("app")
+            template: "<div><h1>{{title}}</h1></div>", // view 界面 模板
+            data: {
+                title: "这是我的第一个vue程序"
+            },  // 给模板提供数据的 model
+        });
+
+        // app.$mount("#app")
+        // app.$mount(document.getElementById("app"))
+
+
+        // 插值表达式 {{变量}} 变量可以使用data选项里面提供的变量
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4.v-model指令</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="userName" />
+        <p>{{userName}}</p>
+
+        <!-- 多选模式 需要指定value ， v-model 需要提供一个数组 -->
+        <div>
+            <h3>checkbox 多选模式</h3>
+            <input type="checkbox" value="1" v-model="selected" />
+            <input type="checkbox" value="2" v-model="selected" />
+            <input type="checkbox" value="3" v-model="selected" />
+            <p>{{selected}}</p>
+        </div>
+
+        <div>
+            <h3>checkbox 单选模式</h3>
+            <!-- 单选模式 v-model 绑定一个布尔值变量即可 -->
+            <input type="checkbox" v-model="checked" />
+            <p>{{checked}}</p>
+        </div>
+
+
+        <div>
+            <!-- 单选框 需要指定value ， v-model 提供某一个项目的value值即可 
+                在多个中选中一个
+                
+            -->
+            <h3>radio</h3>
+            <span>
+                <label for="sex-b">男</label>
+                <input id="sex-b" type="radio" value="1" v-model="sex">
+            </span>
+
+            <span>
+                <label for="sex-g">女</label>
+                <input id="sex-g" type="radio" value="0" v-model="sex">
+            </span>
+            <p>{{sex}}</p>
+        </div>
+        
+
+        <div>
+            <input type="text" v-model="num" />
+            <p>{{num}}</p>
+        </div>
+
+        <div>
+            <h3>下拉列表</h3>
+            <!-- 
+                1. option 必须要指定value值
+                2. 单选模式 v-model 只需要绑定其中一个option的value值 或者空字符串
+                3. 多选模式 v-model 必须要绑定一个数组 包含option的value或者 空数组
+             -->
+            <select v-model="selects" multiple>
+                <option value="北京">北京</option>
+                <option value="天津">天津</option>
+            </select>
+
+            <p>{{selects}}</p>
+
+        </div>
+
+        <div>
+            <h3>文本域</h3>
+            <textarea v-model="text"></textarea>
+            <p>{{text}}</p>
+        </div>
+
+
+        <input type="range" v-model="range" />
+        <p>{{range}}</p>
+    </div>
+
+
+    
+
+    <!-- 
+        v-model 双向绑定数据指令   既可以设置 也可以获取
+        {{}} 插值表达式 单向数据绑定 只能获取
+     -->
+
+
+    <script>
+    
+        const app = new Vue({
+            el: "#app",
+            data: {
+                userName: "",
+                selected: ["1", "2"],
+                checked: false,
+                sex: "1",
+                num: 1,
+                selects: [],
+                text: "",
+                range: 1,
+            }
+        })
+    </script>
+</body>
+</html>

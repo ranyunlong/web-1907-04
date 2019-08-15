@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>7.v-show&v-if指令</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .box {
+            width: 500px;
+            height: 500px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+       
+
+        <!-- 
+            v-show 显示和隐藏元素 利用的是display none来实现的
+            v-show="绑定一个布尔值变量" 变量为true 元素显示 false隐藏
+
+            v-if 和v-show一样绑定一个布尔值 为true时动态添加一个元素 为false时 直接从dom移除该元素
+         -->
+        <!-- <button v-on:click="show=false">隐藏</button>
+        <button v-on:click="show=true">显示</button>
+        <button v-on:click="toggle()">切换</button>
+        <button v-on:click="show=!show">切换</button>
+        <div class="box" v-if="show"></div> -->
+
+
+       <ul>
+           <li v-for="user in list">
+               <input type="checkbox" v-model="user.visbile" />
+               <b v-show="user.visbile">{{user.name}}</b>
+               <!-- <button v-on:click="user.visbile=!user.visbile">切换</button> -->
+           </li>
+       </ul> 
+
+       <button v-on:click="toggleAll">批量隐藏</button>
+
+
+       <ul>
+           <!-- v-show 展示大量数据时 不显示也会耗性能 -->
+           <!-- v-if 展示大量数据时 不显示 不会消耗dom过多的性能 -->
+           <!-- <li v-for="item in 100000" v-if="false">
+            {{item}}
+           </li> -->
+       </ul>
+
+       <div>
+        <!-- v-if v-else-if v-else 中间不要夹杂请其他标签 一定要连起来 -->
+        <div v-if="number === '1'">显示1</div>
+        <div v-else-if="number === '2'">显示2</div>
+        <div v-else>显示其他</div>
+       </div>
+       <input type="text" v-model="number">
+    </div>
+
+
+    <script>
+    
+        const app = new Vue({
+            el: "#app",
+            data: {
+                show: true,
+                number: "1",
+                list: [
+                    {
+                        name: "张三",
+                        visbile: true
+                    },
+                    {
+                        name: "李四",
+                        visbile: true
+                    }
+                ]
+            },
+            methods: {
+                toggle() {
+                    this.show = !this.show;
+                },
+                toggleAll() {
+                    this.list.forEach(v => {
+                        v.visbile = !v.visbile
+                    });
+                }
+            },
+        })
+    </script>
+</body>
+</html>
