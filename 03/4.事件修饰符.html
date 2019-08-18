@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .parent {
+            width: 500px;
+            height: 500px;
+            background: red;
+        }
+
+        .parent .child {
+            width: 200px;
+            height: 200px;
+            background: blue;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 
+            .capture 事件在捕获阶段就运行
+            .stop 阻止事件冒泡
+            .prevent 阻止事件的默认行为 例如右键触发的菜单屏蔽 例如  文本域回车换行
+            .self 事件元素必须是当前元素本身 跟事件冒泡没有关系
+            .once 事件只执行一次 就解绑
+            .passive 移动端事件优化的修饰符
+
+            上面这些修饰符以及后面要讲的修饰符 都可以用在同一个事件上可以使用多个
+            v-on:click.once.stop.prevent.self 像这样用点连接就可以
+
+            键盘的键盘码修饰符 可以使用键盘码 也可以使用按键别名（名称）
+            keydown.13 === keydown.enter
+
+            keydown.ctrl.shift.v （ctrl 和shift 都是系统修饰按键） 必须同时按下才可以
+            keydown.a.v.c 只要是a、v、c任意一个按键按下即可触发 （因为他们不是系统修饰按键）
+
+
+            v-on:click.ctrl="click('parent')" 按住ctrl+click 触发 （多按一个按键 系统是检测不了的 也会触发事件）
+             v-on:click.ctrl.exact 只能是按照ctrl + click 触发事件 只要是多按了任意以一个键 都不会触发事件
+         -->
+        <div class="parent" v-on:click.ctrl.exact="click('parent')">
+            <div class="child" v-on:mousedown.left="click('left')" v-on:mousedown.right="click('right')"></div>
+        </div>
+
+        <textarea v-on:keydown.ctrl.shift.v="keydown('huiche')" v-on:keydown.s="keydown('s')"></textarea>
+
+    </div>
+
+
+    <script>
+        // 自定义键盘码
+        Vue.config.keyCodes.huiche = 13
+        Vue.config.keyCodes.hc = 13
+        const app = new Vue({
+            el: "#app",
+            methods: {
+                click(v, e) {
+                    console.log(v);
+                },
+                keydown(m) {
+                    // 阻止默认行为
+                    // event.preventDefault()
+                    alert(m)
+                }
+            },
+        })
+    </script>
+</body>
+</html>

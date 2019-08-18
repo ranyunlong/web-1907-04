@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="search">
+        <div class="list">
+            <div class="item" v-on:click="select(item)" v-for="item in autoComplateMail">
+                {{item}}
+            </div>
+            <!-- {{ autoComplateMail }} -->
+        </div>
+    </div>
+
+
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                search: "",
+            },
+            computed: {
+                autoComplateMail() {
+                    // 如果输入框里的内容没有 返回空数组
+                    if (!this.search) return [];
+                    // 如果输入框里有@符号或者本身就是一个邮箱地址之后呢就返回空数组
+                    if (/[A-z0-9_]+\@[A-z_0-9]+\.(cn|com|org)/.test(this.search)) {
+                        return [];
+                    }
+                    return [
+                        this.search + "@qq.com",
+                        this.search + "@163.com"
+                    ]
+                }
+            },
+            methods: {
+                select(item) {
+                    // console.log(item)
+                    this.search = item;
+                }
+            },
+        })
+    </script>
+</body>
+</html>

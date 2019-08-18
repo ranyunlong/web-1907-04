@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        body {
+            margin: 0;
+        }
+        #app {
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 1);
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- 
+        style用于弥补class的不足的
+
+        v-bind:style="string"
+        v-bind:style="array"
+        v-bind:style="{
+            key css样式名称
+            value css样式值 （值可以是变量）
+            key: value
+        }"
+     -->
+    <div 
+        id="app" 
+        v-bind:style="[
+            {
+               ' background-color': 'rgba(0,0,0,'+(range / 100)+')'
+            },
+            other,
+            {
+                margin: '100px'
+            }
+        ]">
+
+
+        <input type="range" v-model="range">
+        {{range}}
+    </div>
+
+
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                range: 1,
+                other: {
+                    color: "red",
+                }
+            }
+        })
+    </script>
+</body>
+</html>

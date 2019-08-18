@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input v-model.number="num" />
+        <div>
+            {{getCount()}}
+        </div>
+        
+        <div>
+            {{getCount()}}
+        </div>
+
+        <div>
+            {{getCount()}}
+        </div>
+    </div>
+
+
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                 // 名称也是不能和methods computed里重复的
+                num: 1
+            },
+            methods: {
+                // 名称也是不能和data computed里重复的
+                getCount() {
+                    console.log("运行了多少次")
+                    // 有两次调用就会运行两次 不能缓存结果 每次都是重新计算
+                    // 每一次引用都会重新运行一次
+                    return this.num + 1;
+                }
+            },
+            computed: {
+                // 计算属性里面的方法 可以直接当做变量来使用
+                // 因为他是一个getter setter的语法糖
+                // 计算属性里面的方法不能和 methods data里面的名称重复
+                countNumber() {
+                    console.log("运行了多少次111")
+                    // 如果当前data选项里有数据发生改变 computed就会重新计算一次
+                    // 只要变量不发生变化就不重新计算
+                    // 不管引用多少 都不会触发新的计算
+                    // 只要模板上没有引用 就算变量发生了改变 也不会计算 （惰性加载机制）
+                    return this.num + 1;
+                }
+            },
+        })
+    </script>
+</body>
+</html>

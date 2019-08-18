@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+
+        <input v-model="search" />
+
+        {{obj.name}}
+
+        <button v-on:click="change">修改</button>
+    </div>
+
+
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                search: "",
+                obj: {
+                    name: "张三"
+                }
+            },
+            watch: {
+                // 用于监听data里的变量是否发生了改变
+                // 要想监听data选项里的哪一个成员发生改变 只需要编写一个（成员）同名函数即可
+                search(newValue, oldValue) {
+                    console.log("更新后的值:" ,newValue,"更新前的值:", oldValue)
+                },
+                // 对象是不监听成员的 只监听对象本身是否发生了改变（是否变成了一个新对象）
+                // obj() {
+                //     console.log("obj 已经发生了变化")
+                // }
+
+                obj: {
+                    // 函数名称只能叫handler 监测处理器
+                    handler() {
+                        // console.log("默认情况下和直接obj() 方法一样不监听成员")
+                        console.log("监测对象 以及对象的成员发生改变 必须要deep 为true 的情况下")
+                    },
+                    // 递归检测 成员是否发生了改变
+                    // 如果要监听对象的成员是否改变 使用这个属性
+                    deep: true
+                }
+            },
+            methods: {
+                change() {
+                    // 对象如果被改成新的对象 watch能监听到
+                    this.obj = {name: "李四"}
+
+
+                    // 监听器默认是不监听对象的成员是否发生改变的
+                    // this.obj.name ="李四"
+                }
+            },
+        })
+    </script>
+</body>
+</html>

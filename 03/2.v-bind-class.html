@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2.绑定class</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .active {
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-on:focus="onFoucs" v-on:blur="onBlur" v-bind:index="index">
+        <a 
+            href="#" 
+            v-bind:class="[
+                'abc',
+                {
+                    active: actived,
+                    item: true
+                },
+                {
+                    aa: true,
+                    cc: true
+                }
+            ]">
+            a标签
+        </a>
+
+    </div>
+
+    <script>
+
+        /**
+         * v-bind:class        
+         * 1. 可以绑定 数组
+         *  如果数组里是字符串 他会根据(，)来进行分割
+        *   可以支持数组加对象的组合 也可以再加上字符串组合 （使用对象的时候key作为class名称 value作为决定因素）
+         * 2. 可以绑定 对象
+         * // key: value (boolean) value的布尔用于决定这个样式名称（key）要不要添加到标签上
+         * 3. 可以绑定 字符串
+        *
+         *
+         */
+
+        const app = new Vue({
+            el: "#app",
+            data: {
+                index: "xxx",
+                actived: false,
+                className: {
+                    key: false,
+                    name: true,
+                    "active-a": true
+                }
+            },
+            methods: {
+                onFoucs() {
+                    this.actived = true;
+                },
+                onBlur() {
+                    this.actived = false;
+                },
+                getCss() {
+                    return ["xx", "yy"]
+                }
+            },
+        })
+    </script>
+</body>
+</html>

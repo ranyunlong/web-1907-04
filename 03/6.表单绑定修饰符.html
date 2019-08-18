@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+
+        <!-- 
+            使用change事件来修改数据
+            v-model.lazy="search"
+
+            把数字格式化成number类型
+            v-model.number=""
+            ===
+            v-on:change=""
+         -->
+        <input type="text" v-model="search">
+        <!-- <input type="number" v-model.number="n"> -->
+        <input type="text" v-model.trim="search" />
+        
+
+        <div v-bind:style="{
+            'white-space': 'pre'
+        }">
+            {{search}}
+        </div>
+        <!-- {{typeof n}} -->
+
+    </div>
+
+
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                search: "",
+                n: 0
+            },
+            methods: {
+                change(e) {
+                    // console.log(e)
+                    this.search = e.target.value
+                }
+            },
+        })
+    </script>
+</body>
+</html>
