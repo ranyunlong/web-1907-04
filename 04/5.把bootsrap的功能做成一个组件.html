@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./js/Button.js"></script>
+    <script src="./js/Icon.js"></script>
+    <script src="./js/InputGroup.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 在html 里面使用组件时 如果接受参数的prop名称是 驼峰命名的 属性也需要烤串命名来使用 -->
+    </div>
+
+
+    <script>
+
+        
+
+
+        const app = new Vue({
+            el: "#app",
+            template: `
+            <div class="app">
+                <Button color="default" v-on:click="click">111</Button>
+                <Button color="primary">提交</Button>
+                <Button color="success">发送</Button>
+                <Icon name="minus" />
+
+                <Icon name="cloud" />
+
+                <InputGroup
+                    before-text="账号"
+                    type="text"
+                    placeholder="请输入账号"
+                />
+
+                <InputGroup
+                    before-text="密码"
+                    type="password"
+                    placeholder="请输入密码"
+                />
+            </div>
+            `,
+            methods: {
+                click() {
+                    // 默认组件是没有事件的 如果需要事件 必须我们给组件添加自定义事件
+                    alert("xxx");
+                }
+            },
+        })
+
+        // <slot/> 插槽 用于分发组件里嵌套的子元素
+
+        // function Button(color) {
+        //     return "<button class="+"btn " + "btn-" + color +"></button>"
+        // }
+    </script>
+</body>
+</html>

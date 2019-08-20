@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>1.邮箱补全</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .auto-complate-email {
+            width: 300px;
+            height: auto;
+            position: relative;
+        }
+
+        .auto-complate-email input {
+            width: inherit;
+            height: 30px;
+            line-height: 30px;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+
+        .auto-complate-email .list {
+            border: 1px solid #ccc;
+            position: absolute;
+            width: inherit;
+            border-bottom: none;
+            top: 100%;
+            margin-top: 5px;
+        }
+
+        .auto-complate-email .list .option {
+            height: 30px;
+            line-height: 30px;
+            border-bottom: 1px solid #ccc;
+            padding: 0 10px;
+        }
+
+        .auto-complate-email .list .option.active {
+            background: #ccc;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="auto-complate-email">
+            <input 
+                type="text"
+                v-model="value"
+                @keydown.up.prevent="handleUp"
+                @keydown.down.prevent="handleDown" 
+                @keydown.13="handleEnter"
+                @blur="handleBlur"
+                @focus="handleFocus"
+            />
+            <!-- 如果邮箱列表长度大于0 显示 -->
+            <div class="list" v-if="emailList.length > 0 && isShow">
+                <div 
+                    v-for="(item, index) in emailList"
+                    :class="{
+                        option: true,
+                        active: activeIndex === index
+                    }"  
+                    @click="handleSelect(item)"
+                >
+                    {{item}}
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                value: "",
+                activeIndex: undefined,
+                isShow: false,
+            },
+            computed: {
+                // 根据value来生成候选列表
+                emailList() {
+                    if (!this.value) return [];
+                    // 如果是一个邮箱 返回空数组
+                    if (/\w+@/.test(this.value)) return [];
+                    return [
+                         this.value + "@qq.com",
+                         this.value + "@163.com",
+                         this.value + "@hotmail.com"
+                    ]
+                }
+            },
+            methods: {
+                handleUp() {
+                    if (typeof this.activeIndex === "number") {
+                        this.activeIndex--;
+                    } else {
+                        this.activeIndex = 0;
+                    }
+                    if (this.activeIndex <= 0) {
+                        this.activeIndex = 0;
+                    }
+                },
+                handleDown() {
+                    if (typeof this.activeIndex === "number") {
+                        this.activeIndex++;
+                    } else {
+                        this.activeIndex = 0;
+                    }
+
+                    if (this.activeIndex >= this.emailList.length) {
+                        this.activeIndex = this.emailList.length - 1;
+                    }
+                },
+                handleEnter() {
+                    if (isNaN(this.activeIndex)) return;
+                    this.value = this.emailList[this.activeIndex];
+                },
+                handleSelect(selected) {
+                    this.value = selected;
+                },
+                handleBlur() {
+                    setTimeout(() => {
+                        this.isShow = false;
+                    }, 90);
+                },
+                handleFocus() {
+                    this.isShow = true;
+                }
+            },
+        })
+    </script>
+</body>
+</html>

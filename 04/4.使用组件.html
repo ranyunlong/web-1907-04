@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+
+
+    <script>
+
+        // 全局组件 只需要用Vue.component 注册就可以
+
+        // 在实例没有模板（template）的情况下 在html里编写模板 必须使用烤串（命名）而且必须是双标签 （要不然会被html解析成小写的vue就不认识这个组件）
+        // 在实例有模板（template）的情况下 可以使用小驼峰或者大驼峰 或者 烤串 不受任何限制
+
+        // 组件命名方式
+        // 1. user-name 烤串命名法  适合写到实例的挂载元素(模板)里 由于html在加载解析的时候会把大写的html转换成小写的
+        // 2. userName  小驼峰命名法
+        // 3. UserName  大驼峰命名法 在使用时 可以使用烤串来编写标签 也可以使用小驼峰来编写标签
+
+       
+
+
+        // 大驼峰的情况下 可以使用任意一种命名来使用 （在html里编写只能用烤串命名法）
+        // Vue.component("UserName", {
+        //     template: "<b>UserName</b>"
+        // })
+
+        // 小驼峰的情况下 可以使用 小驼峰（不能在html里使用小驼峰 只能在template写）命名来使用组件 也可以使用 烤串来使用 （大驼峰使用不行）
+        // Vue.component("userName", {
+        //     template: "<b>UserName</b>"
+        // })
+
+
+        // 烤串命名的情况下 只能使用烤串命名来使用组件
+        // Vue.component("user-name", {
+        //     template: "<b>xxx</b>"
+        // }) 
+
+
+        // 在编写注册组件时 优先使用大驼峰来命名 （所有的方式都可以使用  除了在html里必须用烤串名来使用以外）
+
+
+
+        const app = new Vue({
+            el: "#app",
+            template: `
+            <div class="app">
+                <user-name />
+            </div>
+            `
+        })
+    </script>
+</body>
+</html>

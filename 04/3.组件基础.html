@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <i-test></i-test>
+    </div>
+
+    <script>
+        // 组件是一个对象 他和vue实例的结构类似 需要通过注册来使用
+
+        /**
+        * 全局组件
+        * Vue.component(name = string, options = {});
+        * name    组件的名称 也就是组件的挂载元素
+        * options 就是这个组件的配置信息
+        */
+
+        Vue.component("i-button", {
+            // 在组件里 也有一个data的选项 只不过是一个函数返回一个对象
+            data() {
+                return {
+                    value: "这是一个按钮",
+                    title: "组件"
+                }
+            },
+            // 组件的模板 只能在template里编写
+            // 在模板里也可以使用变量 只能使用当前data选项里的变量
+            template: `
+            <div class="i-button" @click="click">
+                {{value}} {{title}}
+            </div>            
+            `,
+            // 组件也可以有自己的处理函数
+            methods: {
+                click() {
+                    alert("i-button click")
+                }
+            },
+            watch: {
+                
+            },
+            // 组件也可以有自己的计算函数
+            computed: {
+                
+            },
+        })
+        Vue.component("i-test", {
+            template: `
+            <div>
+                test组件
+                <i-button></i-button>
+            </div>
+            `,
+        })
+
+        const app = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    title: "实例"
+                }
+            },
+            methods: {
+
+            },
+        })
+    </script>
+</body>
+</html>
