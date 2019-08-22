@@ -18,6 +18,31 @@
     </div>
 
 
+    <template id="app-componenet">
+        <div class="app">
+            <Button color="default" v-on:click="click">111</Button>
+            <Button color="primary">提交</Button>
+            <Button color="success">发送</Button>
+            <!-- <Icon name="minus" /> -->
+
+            <!-- <Icon name="cloud" /> -->
+
+            <InputGroup
+                before-text="账号"
+                type="text"
+                placeholder="请输入账号"
+            />
+
+            <InputGroup
+                before-text="密码"
+                type="password"
+                placeholder="请输入密码"
+            />
+        </div>
+    </template>
+
+    <iframe src="" frameborder="0"></iframe>
+
     <script>
 
         
@@ -25,28 +50,7 @@
 
         const app = new Vue({
             el: "#app",
-            template: `
-            <div class="app">
-                <Button color="default" v-on:click="click">111</Button>
-                <Button color="primary">提交</Button>
-                <Button color="success">发送</Button>
-                <Icon name="minus" />
-
-                <Icon name="cloud" />
-
-                <InputGroup
-                    before-text="账号"
-                    type="text"
-                    placeholder="请输入账号"
-                />
-
-                <InputGroup
-                    before-text="密码"
-                    type="password"
-                    placeholder="请输入密码"
-                />
-            </div>
-            `,
+            template: `#app-componenet`,
             methods: {
                 click() {
                     // 默认组件是没有事件的 如果需要事件 必须我们给组件添加自定义事件

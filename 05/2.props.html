@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./components/Input.js"></script>
+    <script src="./components/Button.js"></script>
+    <script src="./components/Table.js"></script>
+    <script src="./components/Test.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+
+
+
+    <script>
+
+
+        const app = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    title: function() {
+
+                    },
+                    test: new Test("张三", 20),
+                    size: "lg",
+                    columns: [
+                        {
+                            title: "#",
+                            key: "id",
+                        },
+                        {
+                            title: "First Name",
+                            key: "firstName"
+                        },
+                        {
+                            title: "LastName",
+                            key: "lastName"
+                        }
+                    ],
+                    data: [
+                        {
+                            id: "1",
+                            firstName: "Mark",
+                            lastName: "Otto"
+                        },
+                        {
+                            id: "2",
+                            firstName: "Jacob",
+                            lastName: "Thornton"
+                        },
+                        {
+                            id: "3",
+                            firstName: "Larry",
+                            lastName: "the Bird"
+                        }
+                    ]
+                }
+            },
+            components: {
+                Input
+            },
+            template: `
+                <div>
+                    <Table
+                        index="111"
+                        :columns="columns"
+                        :data="data"
+                        striped 
+                        bordered
+                    />
+                    <Button disabled color="default" :size="size">按钮</Button>
+                    {{test}}
+
+                    <TestA v-model="test" />
+                </div>
+            `,
+            methods: {
+                fn(a, b, c) {
+                    // 如果在组件上添加 @绑定事件 这里会把@绑定事件的处理函数添加到组件内部的 $listeners
+                    // 在组件内部可以使用$emit() 才运行 $listeners的对应处理事件
+                    console.log(a, b, c);
+                },
+                change(value) {
+                    // console.log(value)
+
+                    // this.test = value
+                }
+            },
+            // template: `
+            // <div>
+            //     <input type="radio" value="lg" v-model="size" />
+            //     <input type="radio" value="sm" v-model="size" />
+            //     <input type="radio" value="xs" v-model="size" />
+
+
+            //     {{size}}
+
+
+
+            //     <Button disabled color="default" :size="size">按钮</Button>
+            //     <Button color="default" size="sm">按钮</Button>
+            //     <Button color="default" size="xs">按钮</Button>
+            //     <Button color="default">按钮</Button>
+            // </div>
+            // `
+        });
+
+
+        
+    </script>
+</body>
+</html>
+
+
+<!-- 
+    自定义事件的流程
+
+    1. 在组件上监听一个任意事件
+    2. 由组件内部的原生元素 或者 组件触发的事件来触发 组件上监听的事件
+
+
+    @click.native="fn"
+    原生事件 不管组件上有没有自定义事件 都可以触发原生元素事件
+    这个事件是从组件的根元素上捕获而来的
+
+    v-model
+
+    v-model 
+    其实就是 v-bind:value="test"
+    和 @input="value => test = value"
+
+    其实就是 v-bind:value="aa"
+    和 @input="value => aa = value"
+    的一个组合语法糖
+ -->

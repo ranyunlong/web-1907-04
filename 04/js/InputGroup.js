@@ -1,5 +1,5 @@
 Vue.component("InputGroup", {
-    props: ["before-Text", "after", "placeholder", "type"],
+    props: ["before-text", "after", "placeholder", "type"],
     template: `
     <div class="input-group">
         <span v-if="beforeText" class="input-group-addon" id="basic-addon1">{{beforeText}}</span>
