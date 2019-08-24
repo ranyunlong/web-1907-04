@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./components/Swicher.js"></script>
+    <script src="./components/DatePicker.js"></script>
+    <style>
+        .switch {
+            background-color: #ccc;
+            overflow: hidden;
+            display: inline-block;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            transition: all .3s linear;
+        }
+
+        .switch.switch-on {
+            background-color: #2d8cf0;
+            border: 1px solid #2d8cf0;
+        }
+
+        .switch .switch-btn {
+            transition: transform .2s ease-out;
+        }
+
+        .switch.switch-default {
+            width: 44px;
+            height: 22px;
+            border-radius: 12px;
+        }
+
+        .switch.switch-default.switch-on .switch-btn {
+            transform: translateX(22px);
+        }
+
+        .switch .switch-btn {
+            background-color: #fff;
+            border-radius: 50%;
+            display: block;
+            overflow: hidden;
+        }
+
+        .switch.switch-large .switch-btn,
+        .switch.switch-default .switch-btn {
+            width: 22px;
+            height: 22px;
+        }
+
+
+        .switch.switch-large {
+            width: 56px;
+            height: 22px;
+            border-radius: 11px;
+        }
+
+        .switch.switch-large.switch-on .switch-btn {
+            transform: translateX(34px);
+        }
+
+        .switch.switch-small {
+            width: 28px;
+            height: 16px;
+            border-radius: 9px;
+        }
+
+        .switch.switch-small .switch-btn {
+            width: 16px;
+            height: 16px;
+        }
+
+        .switch.switch-small.switch-on .switch-btn {
+            transform: translateX(12px);
+        }
+    
+    
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    
+
+
+    <script>
+        const d = new Date();
+        d.setFullYear(d.getFullYear() + 1);
+        const app = new Vue({
+            data() {
+                return {
+                    value: true,
+                    before: new Date(),
+                    after: d,
+                    show: true,
+                }
+            },
+            el: "#app",
+            // template: `
+            // <div id="app">
+            //     <input type="checkbox" v-model="value" />
+            //     <Switcher :value="value" @input="v => value = v" size="large" />
+            //     <Switcher :value="value" @input="v => value = v" />
+            //     <Switcher :value="value" @input="v => value = v" size="small" />
+            // </div>
+            // `,
+            // template: `
+            // <div id="app">
+            //     <input type="checkbox" v-model="value" />
+            //     <Switcher v-model="value" size="large" />
+            //     <Switcher v-model="value" />
+            //     <Switcher v-model="value" size="small" />
+            //     {{before.toLocaleString()}}
+            //     {{after.toLocaleString()}}
+            //     <DatePicker :before.sync="before" :after.sync="after" />
+            // </div>
+            // `,
+            template: `
+            <div id="app">
+                <input type="checkbox" v-model="value" />
+                <Switcher v-model="value" size="large" />    
+            </div>
+            `
+        })
+    </script>
+</body>
+</html>
+
+
+<!-- 
+ :propname.sync="before"
+ 
+ sync 修饰符 用来绑定prop
+ 除了可以给该prop参数以外
+ 它还可以给他监听一个事件 事件名称为 (update:propname) 如果要和它同步组件内数据改变后 需要调用该事件并且传递参数
+
+ -->

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+
+
+    <script>
+
+        Vue.component("Tree", {
+            // name 当做一个组件
+            // 可以提供给自己使用
+            name: "i-tree",
+            props: {
+                data: Array,
+            },
+            template: `
+            <ul>
+                <li v-for="item in data">
+                    <div class="title" @click="item.isShowChild = !item.isShowChild">{{item.name}}</div>
+                    <i-tree v-if="item.isShowChild" :data="item.children" />
+                </li>
+            </ul>
+            `
+        })
+
+        const app = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    list: [
+                        {
+                            name: "张三",
+                            isShowChild: false,
+                            children: [
+                                {
+                                    name: "晓晓张",
+                                    isShowChild: false,
+                                    children: [
+                                        {
+                                            name: "晓晓小",
+                                            isShowChild: false,
+                                            children: [
+                                                {
+                                                    name: "xiaoxiaoxiao 1"
+                                                },
+                                                {
+                                                    name: "xiaoxiaoxiao 2"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    name: "张晓晓"
+                                }
+                            ]
+                        },
+                        {
+                            name: "李四",
+                            isShowChild: false,
+                            children: [
+                                {
+                                    name: "晓晓李",
+                                },
+                                {
+                                    name: "李晓晓"
+                                }
+                            ]
+                        },
+                        
+                    ]
+                }
+            },
+            template: `
+            <div id="app">
+                <Tree :data="list" />
+                
+            </div>
+            `
+        })
+    </script>
+</body>
+</html>
