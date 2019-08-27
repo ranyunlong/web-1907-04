@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="./1.css">
+    <style>
+        body {
+            margin: 0;
+        }
+        .banner {
+            width: 100%;
+            height: 200px;
+            position: relative;
+        }
+
+        .banner .item {
+            position: absolute;
+            height: inherit;
+            width: inherit;
+            left: 0;
+            top: 0;
+        }
+
+        .time {
+            animation-duration: 2s;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 
+            transition-group 用来过渡列表
+            必须指定一个tag 指定过渡的容器
+            class属性可以直接使用在tag上
+            必须指定一个key属性 属性值必须是唯一的 不能为数字
+
+            剩下的属性 和transition 组件是一样的
+         -->
+        <transition-group 
+            tag="div" 
+            class="banner"
+            :enter-active-class="enter"
+            leave-active-class="time slideOutRight"
+        >
+            <div class="item" 
+                v-for="(item, index) in arr"
+                :key="item"
+                v-show="index===activeIndex"
+                :style="{
+                    backgroundColor: item
+                }"
+            >
+                {{item}}
+            </div>
+        </transition-group>
+
+        <button @click="activeIndex++">下一张</button>
+    </div>
+
+
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    arr: ["red", "blue", "yellow"],
+                    activeIndex: 0,
+                    enter: "time slideInLeft",
+                }
+            },
+        })
+    </script>
+</body>
+</html>

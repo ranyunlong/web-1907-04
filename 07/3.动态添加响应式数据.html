@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./components/Tree.js"></script>
+</head>
+<body>
+    <div id="app">
+        
+    </div>
+
+
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    arr: [
+                        {
+                            name: "张三",
+                            age: 20,
+                            isShowChild: false,
+                            children: [
+                                {
+                                    name: "小张三",
+                                    age: 10,
+                                    isShowChild: false,
+                                    children: []
+                                }
+                            ]
+                        },
+                        {
+                            name: "李四",
+                            age: 21,
+                            isShowChild: false,
+                        }
+                    ],
+                    obj: {
+                        name: "xxx"
+                    }
+                }
+            },
+            template: `
+            <div>
+                <Tree :arr="arr" />
+                {{obj}}
+                <button @click="add">添加age</button>
+            </div>
+            `,
+            methods: {
+                add() {
+                    // this.obj.age = 20;
+                    // console.log(this.obj)
+                    // 不是响应式数据就不会被vue渲染
+                    /**
+                     * 给对象的某一个成员添加成一个响应式数据 跟模板关联
+                     * 给目标对象添加响应式成员 目标对象可以是任何对象
+                     * $set(target, key, value)
+                     * 1. target 要添加的目标对象
+                     * 2. key 对象的成员
+                     * 3. value 对象的value
+                     */
+
+                    // this.$set(this.obj, "age", 20);
+
+                    // this.arr.push(arr[1], "sex", "男")
+
+                    // const obj = {
+                    //     name: "Xx"
+                    // }
+
+                    // this.$set(obj, "cc", 1)
+
+                    // console.log(obj);
+                    
+                    this.$set(this, "vvv", {
+                        name: 1,
+                        age: 2
+                    })
+                }
+            },
+        })
+    </script>
+</body>
+</html>

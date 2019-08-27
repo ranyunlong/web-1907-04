@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="./fonts/iconfont.css">
+    <style>
+        .avatar {
+            background: #ccc;
+            overflow: hidden;
+            color: #Fff;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .avatar img {
+            width: 100%;
+            height: 100%;
+        }
+        .avatar .iconfont {
+            font-size: 0.6em !important;
+        }
+        .avatar.circle {
+            border-radius: 50%;
+        }
+        .avatar.square {
+            border-radius: 5px;
+        }
+        .avatar.default {
+            width: 32px;
+            height: 32px;
+            font-size: 32px;
+        }
+        .avatar.large {
+            width: 40px;
+            height: 40px;
+            font-size: 40px;
+        }
+        .avatar.small {
+            width: 24px;
+            height: 24px;
+            font-size: 24px;
+        }
+        .avatar .text {
+            font-size: 0.4em;
+            display: block;
+            width: 50%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow:clip;
+        }
+    </style>
+    <script src="./components/Icon.js"></script>
+    <script src="./components/Avatar.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+    <div id="app">
+
+
+    </div>
+
+
+    <script>
+        const app = new Vue({
+            el: "#app",
+            template: `
+            <div>
+                <Icon type="bianji" :size="50" color="blue" />
+                <Avatar 
+                    icon="bianji"
+                    :size="100"
+                >
+                </Avatar>
+
+            </div>
+            `
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="./1.css">
+    <style>
+    
+        .box {
+            width: 300px;
+            height: 300px;
+            background: red;
+        }
+
+        /* 当过渡进入时使用 初始化 */
+        .fade-1 {
+            opacity: 0;
+        }
+        /* 动画要过渡到什么状态 */
+        .fade-1-to {
+            opacity: 1;
+        }
+
+        /* 过渡所需要的过渡时间等等 */
+        .fade-1-active {
+            transition: opacity 2s linear;
+        }
+
+        /* 当过渡进入时使用 初始化 */
+        .fadeLeft-enter {
+            opacity: 0;
+            transform: translateX(-100%);
+        }
+        /* 动画要过渡到什么状态 */
+        .fadeLeft-enter-to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* 过渡所需要的过渡时间等等 */
+        .fadeLeft-enter-active {
+            transition: all 2s linear;
+        }
+
+         /* 当过渡离开时时使用 初始化 */
+        .fade-leave {
+            opacity: 1;
+        }
+         /* 动画要过渡到什么状态 */
+        .fade-leave-to {
+            opacity: 0;
+        }
+        .fade-leave-active {
+            transition: all 1s linear;
+        }
+
+         /* 当过渡离开时时使用 初始化 */
+        .fadeLeft-leave {
+            opacity: 1;
+            transform: translateX(0);
+        }
+         /* 动画要过渡到什么状态 */
+        .fadeLeft-leave-to {
+            opacity: 0;
+            transform: translateX(-100%);
+        }
+        .fadeLeft-leave-active {
+            transition: all 1s linear;
+        }
+
+
+        @keyframes rotateIn {
+            from {
+                transform: rotate(0deg) scale(0, 0);
+            }
+            to {
+                transform: rotate(360deg) scale(1, 1);
+            }
+        }
+
+        @keyframes rotateOut {
+            from {
+                transform: rotate(360deg) scale(1, 1);
+            }
+            to {
+                transform: rotate(0deg) scale(0, 0);
+            }
+        }
+
+        .rotateIn {
+            animation: rotateIn linear 1s;
+        }
+
+        .rotateOut {
+            animation: rotateOut linear 1s;
+        }
+
+
+    </style>
+</head>
+<body>
+    <!-- 
+        transition
+        会检测组件或元素的显示状态
+        如果是隐藏 会加上leave 的样式
+            name + "-leave-active"
+            name + "-leave-to"
+            name + "-leave"
+
+        如果是显示 会加上enter 的样式
+            name + "-enter-active"
+            name + "-enter-to"
+            name + "-enter"
+
+     -->
+    <div id="app">
+        <!-- 
+            如果css可以写的情况下 用vue指定方式去写样式
+            如果css在预设好的情况下 不可更改使用这种方式
+
+            @before-enter   动画进入之前的回调
+            @enter          动画进入时的回调
+
+            如果进入完成 after-enter 会执行
+            如果进入未完成取消的话 enter-cancelled 会执行
+            @after-enter    动画进入后的回调
+            @enter-cancelled进入动画已取消
+
+            @before-leave   动画离开之前的回调
+            @leave          动画离开时的回调
+            @after-leave    动画离开时结束后的回调
+            @leave-canc elled动画离开取消时的回调
+         -->
+        <transition
+            enter-active-class="rotateIn"
+            leave-active-class="rotateOut"
+            
+            @before-enter="fn('beforeEnter')"
+            @enter="fn('enter')"
+            @after-enter="fn('afterEnter')"
+            @enter-cancelled="fn('enterCancelled')"
+
+            @before-leave="fn('beforeLeave')"
+            @leave="fn('leave')"
+            @after-leave="fn('afterLeave')"
+            @leave-cancelled="fn('leaveCancelled')"
+
+
+        >
+            <div class="box" v-show="show">
+
+            </div>
+        </transition>
+        <button @click="show = !show">切换</button>
+    </div>
+
+
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    show: true
+                }
+            },
+            methods: {
+                fn(str) {   
+                    console.log(str);
+                }
+            },
+        })
+    </script>
+</body>
+</html>
