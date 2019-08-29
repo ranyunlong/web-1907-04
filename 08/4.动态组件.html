@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .active {
+            background: red;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+
+    
+
+    <script>
+
+        const Home = {
+            template:`
+            <div>Home组件</div>
+            `
+        }
+
+        const Mine = {
+            template:`
+            <div>Mine组件</div>
+            `
+        }
+
+        const News = {
+            template:`
+            <div>News组件</div>
+            `
+        }
+
+
+        const app = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    list: ["Home", "Mine", "News"],
+                    active: "Mine"
+                }
+            },
+            template: `
+            <div>
+                
+                <button :class="{active:active === item}" v-for="item in list" @click="active=item">{{item}}</button>
+                <component :is="active"  />
+                
+            </div>
+            `,
+            components: {
+                Home,
+                News,
+                Mine
+            }
+        })
+    </script>
+</body>
+</html>
+
+
+<!-- 
+    vue自带的组件 component 动态组件
+    <component :is="字符串 组件名称"  />
+
+
+-->

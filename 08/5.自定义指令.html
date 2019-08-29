@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+        /**
+         *  Vue.directive(name: string, option: object)
+         * 1. name  指令名称
+         * 2. option 指令的选项
+         */
+        
+        // Vue.directive("listener", {});
+
+        // http://vue.ranyunlong.com/v2/guide/custom-directive.html
+
+        Vue.directive("focus", {
+            // 指令和（标签或组件）第一次绑定时触发
+            bind(el, binding, vnode, oldVNode) {
+                console.log(binding)
+                
+                /** 
+                 * el 指令所绑定的元素对象(如果绑定指令的是一个组件 获取到的是组件的根元素)
+                 * binding 指令上所绑定的数据
+                 * 1. name 指令名称 不带v-
+                 * 2. rawName 指令的真实名称 带 v-
+                 * 3. value 指令所绑定的值
+                 * 4. expression 表达式 指令上的绑定的原始表达式
+                 * 5. arg 指令所带的参数 指令冒号后面跟的字符 v-test:aaa aaa 就是参数 切只能有一个
+                 * 6. modifiers 指令所使用的修饰符
+                 */
+            },
+            // 当绑定这个指令的（标签或组件）被添加至dom时触发
+            inserted(el, binding, vnode, oldVNode) {
+                console.log("绑定指令的元素已经添加到dom了")
+                el.focus();
+            },
+            // 当绑定这个指令的（标签或组件）当数据更新时触发
+            update(el, binding, vnode, oldVNode) {
+                console.log("绑定指令的数据发生改变了")
+            },
+            // 当绑定这个指令的（标签或组件）组件发生改变时触发
+            componentUpdated(el, binding, vnode, oldVNode) {
+                // 使用组件的上下文里的变量发生了改变
+                console.log("绑定指令的组件发生改变了")
+            },
+            // 取消绑定时触发
+            unbind(el, binding, vnode, oldVNode) {
+                // 组件或元素销毁的时候触发
+                console.log("指令和组件以及解除绑定了")
+            }
+        })
+        Vue.directive("listener", {
+            bind(el, binding) {
+                // console.log(el, binding)
+                // console.log(binding)
+                el.addEventListener(binding.arg, (e) => {
+                    if (binding.modifiers.stop) {
+                        // console.log("已阻止事件冒泡")
+                        // 阻止事件冒泡
+                        e.stopPropagation()
+                    }
+                   
+                    binding.value(e)
+                })
+            }
+
+        });
+
+        const Test = {
+            template: "<div>test</div>"
+        }
+
+        const app = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    isFocus: true,
+                    text: "123"
+                }
+            },
+            methods: {
+                click(e) {
+                    console.log(1)
+                }
+            },
+            template: `
+            <div>
+                <button  @click="isFocus = !isFocus">改变数据</button>
+                <input  v-sync="text" />
+
+                <input v-model="text" />
+                
+            </div>
+            `,
+            components: {
+                Test
+            },
+            directives: {
+                sync: {
+                    bind(el, binding, vnode) {
+                        // console.log(el, binding)
+                        // console.dir(el)
+                        
+                        // console.log(el instanceof HTMLInputElement)
+                        // console.log(el instanceof HTMLButtonElement)
+                        
+
+                        if ((el instanceof HTMLInputElement) || (el instanceof HTMLTextAreaElement)) {
+
+                            console.log(el.type)
+                            
+                            // 在绑定阶段把默认值绑定给元素
+                            el.value = binding.value
+
+                            if (!vnode.context[binding.expression]) {
+                                throw new Error(`Failed to generate render function: ReferenceError: Invalid left-hand side in assignment in`)
+                            }
+
+                            // 监听事件 修改虚拟dom上下文中（指令所在的模板中的实例 或者组件里）的数据
+                            el.addEventListener("input", () => {
+                                console.log(binding.expression)
+                                // 修改虚拟dom上下文中的数据
+                                if (vnode.context[binding.expression]) {
+                                    vnode.context[binding.expression] = event.target.value
+                                }
+                            })
+                        }    
+
+
+                    },
+                    update(el, binding, vnode, oldVNode) {
+                        if ((el instanceof HTMLInputElement) || (el instanceof HTMLTextAreaElement)) {
+                            el.value = binding.value
+                        }
+
+                        // if (vnode.context[binding.expression]) {
+                        //     vnode.context[binding.expression] = binding.value
+                        // }
+
+                        console.log(binding)
+                        
+                        // 虚拟dom 的上下文 指令所使用的模板所在的组件 或实例
+                        console.log(vnode.context)
+                    },
+                    unbind() {
+                        // 清除掉 事件监听
+                    }
+                }
+            }
+        });
+
+
+        // var input = document.createElement("input");
+
+        // console.log(input)
+        // input.focus()
+
+        // input.style.backgroundColor= "Red";
+
+        // document.body.appendChild(input);
+
+        
+
+
+    </script>
+</body>
+</html>

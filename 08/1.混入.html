@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./components/Icon.js"></script>
+    <script src="./components/Table.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+
+
+    <script>
+        /**
+         * 全局混入
+         * Vue.mixin(option)
+         * 1. option 和组件的选项一样
+         * 
+         * 全局组件
+         * Vue.component(name, option)
+         */
+
+        // 局部组件 就是一个组件选项 (带template)
+        // 局部混入 也是一个组件选项 (不带template)
+
+
+
+        // 会在每一个组件里 混入这里的data的成员
+        // 无论你是全局组件还是局部组件 里面都会包含 name这个成员
+        // 解决维护问题
+        // 组件内部的成员 可以覆盖混入的成员（声明周期除外）
+        // 如果组件内部有生命周期 混入也有相同的生命周期 （混入的生命周期先执行 组件内部的后执行）
+        Vue.mixin({
+            data() {
+                return {
+                    name: "张三",
+                    prefix: "i-data-"
+                }
+            },
+            beforeMount() {
+                // 用它来监控每一个组件的 运行状态等
+                console.log("混入的生命周期",this);
+            },
+        })
+
+        // vue在实例化组件时
+        // 1. 创建基础组件时 就把混入的成员先加到基础里面去了
+        // 2. 把组件中的成员加到组件里
+
+
+        // 局部混入
+        const mixin = {
+            data() {
+                return {
+                    key: "123"
+                }
+            },
+        }
+
+        const mixin1 = {
+            data() {
+                return {
+                    date: new Date().toLocaleString()
+                }
+            },
+        }
+
+
+        // 有很多个或者全局的所有组件 都具有相同的属性 可以使用全局混入来管理
+        // 如果只有几个组件 具有相同的属性 那么 就用局部混入
+        
+
+        const Test = {
+            mixins: [mixin, mixin1],
+            template: `
+            <div :class="prefix + 'test'">test {{key}}  {{date}} </div>
+            `,
+            beforeMount() {
+                console.log("组件内部的生命周期", this);
+            }
+        }
+
+
+
+
+
+        const app = new Vue({
+            mixins: [mixin],
+            el: "#app",
+            template: `
+            <div>
+                <Icon />
+                <Test />
+                {{key}}
+            </div>
+            `,
+            components: {
+                Test
+            }
+        })
+    </script>
+</body>
+</html>

@@ -73,7 +73,15 @@
                         :data="data"
                         striped 
                         bordered
-                    />
+                    >
+                        <template slot="aa" slot-scope="data" >
+                            <button @click="handleClick(data.item, data.index)">添加</button>
+                            <button @click="handleClick(data.item, data.index)">删除</button>
+                        </template>
+                    </Table>
+
+
+                    
                     <Button disabled color="default" :size="size">按钮</Button>
                     {{test}}
 

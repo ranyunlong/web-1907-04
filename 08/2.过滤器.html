@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+
+
+    <script>
+
+        var currencys = {
+            "zh-CN": "￥",
+            "en-US": "$",
+        }
+
+        /**
+         * 全局过滤器 管道
+         * 
+         * 任意组件或者实例中都能使用
+         * 
+         * Vue.filter(name, handler)
+         * 1. name 过滤器名称
+         * 2. handler 过滤器的处理函数
+         */
+
+        Vue.filter("currency", (value) => {
+            return currencys[window.navigator.language] + value
+        })
+       
+
+        const app = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    yen: 100,
+                    lang: "zh-CN0001002"
+                }
+            },
+            template:`
+            <div>
+                {{yen | currency}}
+
+
+                {{yen | currency}}
+
+
+                {{yen | currency}}
+
+
+                {{yen | currency}}
+
+
+                {{yen | currency}}
+
+
+                {{yen | currency}}
+
+                {{yen | currency}}
+
+                {{lang | lowercase | uppercase}}
+                
+            </div>
+            `,
+            //  局部过滤器 只在等钱组件里面生效
+            filters: {
+                // 对象key是过滤器名称
+                // 对象的value是过滤器
+                lowercase(value) {
+                    return value.toLowerCase().replace(/[\d]/g, "");
+                },
+                uppercase(value) {
+                    return value.toUpperCase();
+                }
+            }
+        })
+    </script>
+</body>
+</html>

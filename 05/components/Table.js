@@ -36,7 +36,11 @@ Vue.component("Table", {
                 {{item[col.key]}}
                 </td>
                 <td>
-                    <button @click="handleClick(item, index)">删除</button>
+                    <slot name="aa" :item="item" ：index="index" />
+                    <template slot="aa" slot-scope="data" >
+                        <button @click="handleClick(data.item, data.index)">添加</button>
+                        <button @click="handleClick(data.item, data.index)">删除</button>
+                    </template>
                 </td>
             </tr>
             
