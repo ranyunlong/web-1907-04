@@ -109,3 +109,26 @@ yarn 管理器 和npm 一样 要使用yarn
 npm i -g yarn
 ```
 
+## webpack-dev-server
+
+使用express 创建的一个服务器, 在开发模式下 webpack-dev-server不会生成任何文件，
+打包好的文件在内存中
+
+```shell
+npm install webpack-dev-server
+# or
+yarn add webpack-dev-server
+```
+
+
+## html-webpack-plugin
+
+https://www.webpackjs.com/plugins/html-webpack-plugin/
+
+用于把devServer 在内存中生成的文件 添加至指定的html页面中
+
+```shell
+yarn add html-webpack-plugin
+# or
+npm i  html-webpack-plugin
+```

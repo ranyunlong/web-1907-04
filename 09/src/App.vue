@@ -1,7 +1,8 @@
 <template>
 <!-- html-loader来处理 保存到组件的模板选项里去 -->
-    <div>
+    <div class="test">
         <h1>{{title}}</h1>
+        <img src="./imgs/1.jpg" />
     </div>
 </template>
 
@@ -11,7 +12,7 @@
     export default {
         data() {
             return {
-                title: "这是一个标题"
+                title: "这是一个标题1"
             }
         },
         methods: {
@@ -24,6 +25,11 @@
 
 <style>
     /* 这里的东西由css-loader 直接处理了 */
+
+    .test {
+        background: red;
+    }
+
 </style>
 
 

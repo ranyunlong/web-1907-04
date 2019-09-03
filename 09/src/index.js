@@ -55,21 +55,7 @@ require("@babel/polyfill");
 
 // 支持template 模板编译
 import Vue from "vue/dist/vue.esm";
-// import App from "./App.vue";
-
-
-const App = {
-    template: `
-    <h1>{{title}}</h1>
-    `,
-    data() {
-        return {
-            title: "标题"
-        }
-    },
-}
-
-console.log(App)
+import App from "./App.vue";
 
 
 new Vue({

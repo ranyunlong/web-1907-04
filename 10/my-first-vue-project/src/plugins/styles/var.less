@@ -1,0 +1,15 @@
+// less的变量 @ 带名称: 值
+
+@primary: red;
+@border-width: 1px;
+@border-color: #000;
+
+
+.flex(@direction: row) {
+    display: flex;
+    flex-direction: @direction;
+}
+
+.border(@style: solid; @color: red; @width: 1px;  ) {
+    border: @width @color @style;
+}
