@@ -39,3 +39,6 @@ new Vue({
     el: "#app",
     render: h => h(App),
 });
+
+
+document.getElementById().style.animationDuration
