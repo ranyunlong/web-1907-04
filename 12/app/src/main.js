@@ -8,6 +8,24 @@ import iview from "iview";
 import "iview/dist/styles/iview.css";
 
 
+router.beforeEach((to, form, next) => {
+    // 判断是否需要验证登录
+    if(to.meta.auth) {
+        // token 
+        if (localStorage.getItem("token")) {
+            next();
+        } else {
+            next({
+                path: "/login.html"
+            })
+        }
+
+    } else {
+        next();
+    }
+})
+
+
 Vue.directive("submit", {
     bind(el, binding) {
         // console.log(el, binding)

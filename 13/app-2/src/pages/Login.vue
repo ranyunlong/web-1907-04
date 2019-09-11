@@ -35,7 +35,7 @@
 </template>
 
 <script>
-    import { http, baseURL } from "../http";
+    import { baseURL } from "../http"
     // https://www.npmjs.com/package/uuid
     import uuid from "uuid";
     // https://www.npmjs.com/package/validator
@@ -146,7 +146,7 @@
                             login(this.form).then(res => {
                                 // 登录成功保存token
                                 localStorage.setItem("token", res.data.token);
-                                this.$router.replace("/admin.html");
+                                this.$router.replace("/admin");
                             })
                         }
                     })

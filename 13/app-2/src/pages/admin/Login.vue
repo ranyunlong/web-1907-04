@@ -35,12 +35,19 @@
 </template>
 
 <script>
-    import { http, baseURL } from "../http";
+    import { baseURL } from "../../http"
     // https://www.npmjs.com/package/uuid
     import uuid from "uuid";
     // https://www.npmjs.com/package/validator
+    import { sysUserInfo } from "../../api/sys/user.info.api";
     import validatorJs from "validator";
-    import { login } from "../api/login.api";
+    import { login } from "../../api/login.api";
+    import { mapMutations, mapState } from "vuex";
+    // mapMutations(
+    //     [
+    //         "loginOut"
+    //     ]
+    // )
     export default {
         data() {
             return {
@@ -146,7 +153,8 @@
                             login(this.form).then(res => {
                                 // 登录成功保存token
                                 localStorage.setItem("token", res.data.token);
-                                this.$router.replace("/admin.html");
+                                this.getUserInfo();
+                                this.$router.replace("/admin");
                             })
                         }
                     })
@@ -166,7 +174,23 @@
                 this.form.uuid = uuid();
                 // 让验证码显示加载状态
                 this.captchaLoading = true;
-            }
+            },
+            getUserInfo() {
+                sysUserInfo().then(res => {
+                    const { code, user } = res.data;
+                    if (code === 0) {
+                        // this.user = user;
+                        // this.$store.commit("changeUser", user);
+                        this.changeUser(user);
+                    }
+                })
+            },
+
+            // 助手函数
+            // 根据传递进去的字符串 生成对应的commit 方法
+            ...mapMutations([
+                "changeUser"
+            ])
         },
         computed: {
             captchaImgSrc() {
