@@ -38,9 +38,10 @@
     import { baseURL } from "../http"
     // https://www.npmjs.com/package/uuid
     import uuid from "uuid";
+    import { mapActions } from "vuex";
     // https://www.npmjs.com/package/validator
     import validatorJs from "validator";
-    import { login } from "../api/login.api";
+    import actions from "../store/actions";
     export default {
         data() {
             return {
@@ -128,6 +129,9 @@
         //     })
         // },
         methods: {
+            ...mapActions([
+                actions.login
+            ]),
             submit(e) {
                 // console.log(this.form);
                 e.preventDefault();
@@ -142,16 +146,9 @@
                     .then(res => {
                         // 表单验证通过
                         if (res) {
-                            // console.log(this.form);
-                            login(this.form).then(res => {
-                                // 登录成功保存token
-                                localStorage.setItem("token", res.data.token);
-                                this.$router.replace("/admin");
-                            })
+                            this[actions.login](this.form);
                         }
                     })
-
-
                 // http
                 //     .post("/users/login", this.form)
                 //     .then(res => {

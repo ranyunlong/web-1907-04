@@ -5,6 +5,9 @@ import store from './store'
 
 Vue.config.productionTip = false
 
+
+// store.dispatch("CHANGE_NUM", Math.random())
+
 new Vue({
   router,
   store,

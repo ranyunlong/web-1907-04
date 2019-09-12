@@ -4,8 +4,6 @@
             <div class="logo">
                 logo
             </div>
-            <Button @click="$router.back()">返回首页</Button>
-            
             <Dropdown v-if="user">
                 <Button type="primary">
                     {{user.email}}
@@ -36,7 +34,15 @@
             </Sider>
             <Content class="main">
                 <div class="content">
-                    <router-view></router-view>
+                    <!-- 
+                        keep-alive
+                        可以把v-if隐藏的元素缓存起来
+                        路由也可以缓存
+                     -->
+                   <keep-alive>
+                        <router-view></router-view>
+                   </keep-alive>
+                   
                 </div>
             </Content>
         </Layout>
@@ -46,8 +52,8 @@
 <script>
     import { sysUserInfo } from "../../api/sys/user.info.api";
     import { sysMenuNav } from "../../api/sys/menu.nav.api";
-    import { mapGetters } from "vuex";
-
+    import { mapGetters, mapActions } from "vuex";
+    import actions from "../../store/actions"
    
     export default {
         created() {
@@ -75,6 +81,9 @@
             //     })
             // },
             // 获取当前用户的菜单
+            ...mapActions([
+                actions.logout
+            ]),
             getNav() {
                 sysMenuNav().then(res => {
                     const { code, menuList } = res.data;
@@ -101,7 +110,7 @@
                 }
             },
             logout() {
-                this.$store.commit("loginOut")
+                this[actions.logout]();
             }
         },
         computed: {

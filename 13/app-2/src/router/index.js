@@ -24,8 +24,17 @@ export default new VueRouter({
                     path: "login",
                     alias: "login.html",
                     component: () => import("../pages/admin/Login.vue")
-               }
-
+               },
+               {
+                    path: "users",
+                    alias: "users.html",
+                    component: () => import("../pages/admin/Users.vue")
+               },
+               {
+                    path: "roles",
+                    alias: "roles.html",
+                    component: () => import("../pages/admin/Roles.vue")
+                }
             ]
         }
     ],
